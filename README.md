@@ -47,8 +47,8 @@
     </ul>
     <p> Onde se encontra a keyword methos, é onde ficam os métodos que poderão ser utilizados ao criar um objeto deste modelo.</p>
     <p> Imagens abaixo.</p>
-    <img src="./src/images/UsurioModel">
-    <img src="./src/images/ContaModel">
+    <img src="./src/images/UsuarioModel.png">
+    <img src="./src/images/ContaModel.png">
     <p> No modelo da Conta nós possuímos os métodos: </p>
     <ul>
       <li> abrirConta - Cria uma nova conta bancária.</li>
