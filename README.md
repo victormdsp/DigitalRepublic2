@@ -27,7 +27,7 @@
 <section>
   <h2> Segundo Projeto (Diferente) </h2>
   <h3> Organização das pastas </h3>
-  <img src="./images/pastas.png">
+  <img src="./src/images/pastas.png">
   <p> Como podemos ver na imagem acima , possuímos a pasta src e dentro dela temos 2 pastas importantes, a "interfaces" e a "mongoDBModels", e também possuímos os arquivos routes.ts e server.ts.</p>
   
   <h2> Pasta Interfaces </h2>
