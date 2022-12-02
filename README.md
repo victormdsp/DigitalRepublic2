@@ -33,8 +33,8 @@
   <h2> Pasta Interfaces </h2>
   <section>
     <p> Dentro da pasta interfaces temos 2 arquivos , o IUsuario que seria a interface para a classe Usuario e o IConta que seria a interface para a classe Conta, dentro delas temos apenas a criação do contrato de cada classe com seus métodos e atributos como mostrado nas imagens abaixo</p>
-    <img src="./images/IConta.png">
-    <img src="./images/IUsuario.png">
+    <img src="./src/images/IConta.png">
+    <img src="./src/images/IUsuario.png">
   </section>
   
   <h2> Pasta mongoDBModels </h2>
@@ -47,8 +47,8 @@
     </ul>
     <p> Onde se encontra a keyword methos, é onde ficam os métodos que poderão ser utilizados ao criar um objeto deste modelo.</p>
     <p> Imagens abaixo.</p>
-    <img src="./images/UsurioModel">
-    <img src="./images/ContaModel">
+    <img src="./src/images/UsurioModel">
+    <img src="./src/images/ContaModel">
     <p> No modelo da Conta nós possuímos os métodos: </p>
     <ul>
       <li> abrirConta - Cria uma nova conta bancária.</li>
