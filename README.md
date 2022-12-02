@@ -54,7 +54,7 @@
       <li> abrirConta - Cria uma nova conta bancária.</li>
       <li> depositar - Deposita um valor passado na conta bancária.</li>
       <li> transferir - Faz uma trasferência bancária.</li>
-      <li> transferir - Notifica a conta que recebeu uma transferência.</li>
+      <li> transferenciaRecebida - Notifica a conta que recebeu uma transferência.</li>
     </ul>
     <p> No modelo do Usuário nós possuímos o método: </p>
     <ul>
