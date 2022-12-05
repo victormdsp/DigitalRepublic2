@@ -27,14 +27,14 @@
 <section>
   <h2> Segundo Projeto (Diferente) </h2>
   <h3> Organização das pastas </h3>
-  <img src="./images/pastas.png">
+  <img src="./src/images/pastas.png">
   <p> Como podemos ver na imagem acima , possuímos a pasta src e dentro dela temos 2 pastas importantes, a "interfaces" e a "mongoDBModels", e também possuímos os arquivos routes.ts e server.ts.</p>
   
   <h2> Pasta Interfaces </h2>
   <section>
     <p> Dentro da pasta interfaces temos 2 arquivos , o IUsuario que seria a interface para a classe Usuario e o IConta que seria a interface para a classe Conta, dentro delas temos apenas a criação do contrato de cada classe com seus métodos e atributos como mostrado nas imagens abaixo</p>
-    <img src="./images/IConta.png">
-    <img src="./images/IUsuario.png">
+    <img src="./src/images/IConta.png">
+    <img src="./src/images/IUsuario.png">
   </section>
   
   <h2> Pasta mongoDBModels </h2>
@@ -47,14 +47,14 @@
     </ul>
     <p> Onde se encontra a keyword methos, é onde ficam os métodos que poderão ser utilizados ao criar um objeto deste modelo.</p>
     <p> Imagens abaixo.</p>
-    <img src="./images/UsurioModel">
-    <img src="./images/ContaModel">
+    <img src="./src/images/UsuarioModel.png">
+    <img src="./src/images/ContaModel.png">
     <p> No modelo da Conta nós possuímos os métodos: </p>
     <ul>
       <li> abrirConta - Cria uma nova conta bancária.</li>
       <li> depositar - Deposita um valor passado na conta bancária.</li>
       <li> transferir - Faz uma trasferência bancária.</li>
-      <li> transferir - Notifica a conta que recebeu uma transferência.</li>
+      <li> transferenciaRecebida - Notifica a conta que recebeu uma transferência.</li>
     </ul>
     <p> No modelo do Usuário nós possuímos o método: </p>
     <ul>
