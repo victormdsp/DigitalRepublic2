@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 
 mongoose.connect("mongodb+srv://victormdsp:81005496@cluster0.zm0nvyf.mongodb.net/DigitalRepublic");
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use('/', router);
