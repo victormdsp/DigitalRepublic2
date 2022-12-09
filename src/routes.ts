@@ -8,36 +8,20 @@ const router = Router();
 //Rota para buscar um Usuário
 router.get('/getUsuario', async (request, response) => {
     const data = request.body;
-    const usuario = await getUsuario(data.cpf);    if (!usuario) {
-        response.status(404).send("Usuário não encontrado");
+    const usuario = await getUsuario(data.cpf); if (!usuario) {
+        response.status(404).send({ message: "Usuário não encontrado" });
     }
     else {
         response.status(200).send(usuario);
     };
 });
 
-//Rota para criar um Usuário
-router.post('/criarUsuario', async (request, response) => {
-    const data = request.body;
-    const usuarioDb = await getUsuario(data.cpf);
-
-    if (usuarioDb) {
-        response.status(404).send("Usuário já cadastrado");
-    }
-
-    else {
-        const usuario = new modelUser();
-        const usuarioCriado = await usuario.createUsuario(data.cpf, data.name, data.midName, data.lastName);
-        response.status(200).send(usuarioCriado);
-    }
-})
-
 //Rota para buscar uma Conta
 router.get('/getConta', async (request, response) => {
     const data = request.body;
     const conta = await getConta(data.cpf);
 
-    if (!conta) response.status(404).send("Conta não encontrada");
+    if (!conta) response.status(404).send({ message: "Conta não encontrada" });
     else {
         response.status(200).send(conta);
     }
@@ -48,9 +32,9 @@ router.get('/getSaldo', async (request, response) => {
     const data = request.body;
     const conta = await getConta(data.cpf);
 
-    if (!conta) response.status(404).send("Conta não encontrada");
+    if (!conta) response.status(404).send({ message: "Conta não encontrada" });
     else {
-        response.status(200).send(`O saldo desta conta é de R$${conta.saldo}`);
+        response.status(200).send(conta.saldo);
     }
 })
 
@@ -61,13 +45,19 @@ router.post('/criarConta', async (request, response) => {
     const usuarioDB = await getUsuario(data.cpf);
     const contaDb = await getConta(data.cpf);
 
-    if (!usuarioDB) response.status(404).send("Usuário não encontrado");
-    else if (!data.password) response.status(400).send("É necessário inserir uma senha");
-    else if (contaDb) response.status(400).send("Conta já criada");
+    if (usuarioDB) {
+        response.status(404).send({ message: "Usuário já cadastrado" });
+    }
+
+    const usuario = new modelUser();
+    const newUser = await usuario.createUsuario(data.cpf, data.name, data.midName, data.lastName);
+
+    if (contaDb) response.status(400).send({ message: "Conta já criada" });
 
     else {
         const conta = new modelConta();
-        const respostaConta = await conta.abrirConta(usuarioDB, data.password);
+        const respostaConta = await conta.abrirConta(newUser, data.password);
+        console.log(respostaConta.message);
         response.status(respostaConta.status).send(respostaConta.message)
     }
 });
@@ -78,31 +68,41 @@ router.put('/transferencia', async (request, response) => {
 
     const contaTransferidor = await getConta(data.cpfTransferidor);
     const contaTransferida = await getConta(data.cpfTransferido);
-        
-    if (!data.valor || data.valor <= 0) response.status(400).send("Valor de transferência incorreto.");
-    else if (!contaTransferidor) response.status(400).send("Conta do transferidor não encontrada.");
-    else if (!contaTransferida) response.status(400).send("Conta a ser transferida não encontrada.");
-    else if (!data.password) response.status(400).send("É necessário inserir uma senha");
-    else if (!bycrypt.compareSync(data.password, contaTransferidor.password)) response.status(400).send("Senha da conta incorreta."); //Verifica se a senha da conta está correta
+
+    if (!contaTransferidor) response.status(400).send({ message: "Conta do transferidor não encontrada." });
+    else if (!contaTransferida) response.status(400).send({ message: "Conta a ser transferida não encontrada." });
+    else if (!bycrypt.compareSync(data.password, contaTransferidor.password)) response.status(400).send({ message: "Senha da conta incorreta." }); //Verifica se a senha da conta está correta
     else {
         const contaModelo = new modelConta();
 
         const respostaTransferencia = await contaModelo.transferir(contaTransferidor, contaTransferida, data.valor);
-        response.status(respostaTransferencia.status).send(respostaTransferencia.message);
+        response.status(respostaTransferencia.status).send({ saldo: respostaTransferencia.message });
     }
 })
 
 //Rota para realizar um depósito
 router.put('/depositar', async (request, response) => {
     const data = request.body;
+
     const conta = await getConta(data.cpf);
-    if (!data.valor || data.valor <= 0) response.status(400).send("Valor de deposito incorreto.");
-    else if (!conta) response.status(404).send("Conta não encontrada");
+    if (!conta) response.status(404).send({ message: "Conta não encontrada" });
 
     else {
         const contaModelo = new modelConta();
         const respostaDeposito = await contaModelo.depositar(conta, data.valor);
         response.status(respostaDeposito.status).send(respostaDeposito.message);
+    }
+})
+
+//Rota para se logar em uma Conta;
+router.post('/login', async (req, res, next) => {
+    const data = req.body;
+    const contaDb = await modelConta.find({ cpf: data.cpf })
+
+    if (!contaDb[0]) return res.status(404).send({ message: "Não foi possível encontrar o usuário" });
+    else if (!bycrypt.compareSync(data.password, contaDb[0].password)) res.status(400).send({ message: "Senha da conta incorreta." });
+    else {
+        res.status(200).send(contaDb[0]);
     }
 })
 

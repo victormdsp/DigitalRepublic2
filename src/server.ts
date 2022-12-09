@@ -1,15 +1,18 @@
 const express = require("express");
 const router = require("./routes");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const cors = require("cors");
 
 mongoose.connect("mongodb+srv://victormdsp:81005496@cluster0.zm0nvyf.mongodb.net/DigitalRepublic");
 
 export const app = express();
 
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(cors());
 app.use('/', router);
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log(" Escutando na porta 3000\n")
     console.log(" Olá avaliador da Digital Republic =), este projeto é um pouco diferente do proposto no desafio. \n A diferença é que eu utilizei dois Modelos (Classes) neste projeto, uma da Conta Bancária do usuário e uma para o Usuário , \n asism separando as duas tabelas pensando em larga escala onde poderiamos ter muitas informações e acabar tendo uma classe com muita informação!\n")
     console.log(" Estou deixando casos de teste para cada rota caso queira testar no postman ou insomnia: \n");

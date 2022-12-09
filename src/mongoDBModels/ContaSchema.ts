@@ -38,7 +38,7 @@ const Conta = new Schema<IConta>({
                     const conta = {
                         id: v4(),
                         saldo: 0,
-                        cpf: usuario.cpf,
+                        cpf: usuario.message.cpf,
                         password: passwordHash,
                     }
 
@@ -64,14 +64,14 @@ const Conta = new Schema<IConta>({
             async depositar(conta, valor: number): Promise<any> {
                 return new Promise((resolve, reject) => {
                     if (valor > 2000) {
-                        resolve({ message: `Depositos maiores que R$2000 não são aceitos`, status: 200 });
+                        resolve({ message: `Depositos maiores que R$2000 não são aceitos`, status: 400 });
                     }
 
                     conta.saldo += valor;
                     modelConta.findOneAndUpdate({ id: conta.id }, { saldo: conta.saldo })
                         .then(() => {
                             const resposta = {
-                                message: `Depósito de R$${valor} efetuado.`,
+                                message: valor,
                                 status: 200,
                             }
                             resolve(resposta);
@@ -97,7 +97,7 @@ const Conta = new Schema<IConta>({
                 contaTransferidor.saldo -= valor;
                 await modelConta.findOneAndUpdate({ id: contaTransferidor.id }, { saldo: contaTransferidor.saldo });
                 await contaTransferida.transferenciaRecebida(contaTransferida, valor);
-                return { message: `Transferência realizada, o saldo restante foi de R$${contaTransferidor.saldo}`, status: 200 };
+                return { message: contaTransferidor.saldo, status: 200 };
             },
 
             //Essa função serve para notificar ao outro usuário que ele recebeu uma transferência (Basicamente como um Observer caso ocorra uma transferência ele notificar o usuário);
