@@ -8,11 +8,14 @@
 <section>
   <h2>Tecnologias utilizadas</h2>
     <ul>
-      <li>NodeJs</li>
+      <li>NodeJs > 14</li>
       <li>TypeScript</li>
       <li>MongoDb</li>
+      <li>Jest</li>
     </ul>
     <p> A proposta do desafio não especificava um banco de dados, porém como já possuo conhecimento com MongoDB preferi optar por ele. </p>
+    <p> Para rodar o código primeiramente é necessário utilizar o comando "npm i" para instalar as dependências e em seguida utilizar o comando "npm run start".</p>
+    <p> Caso queria rodar os testes de unidade basta utilizar o comando "npm run test", após a instalação das dependências.</p>
     <h2>Bibliotecas utilizadas</h2>
     <ul>
       <li>Express (Criação das rotas)</li>
@@ -61,6 +64,9 @@
       <li> createUsuario - Cria um novo usuário.</li>
     </ul>
   </section>
+  
+  <h2> Arquivo routes.test.ts </h2>
+  <p>Neste arquivo se encontram os testes de unidade (fiz todos baseados em funcionar o teste , caso queira que de falha é só inserir alguma informação no .send de cada teste).</p>
   
   <h2> Arquivo routes.ts </h2>
   <section>
